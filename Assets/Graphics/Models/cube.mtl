@@ -1,0 +1,17 @@
+newmtl Collider
+map_Kd GridBox_Collider.png
+Kd 1.0 1.0 1.0
+d 1.0
+
+newmtl White
+Kd 0.9811321 0.9811321 0.9811321
+d 1
+
+newmtl Green
+Kd 0.458707 1 0.4103774
+d 1
+
+newmtl Purple
+Kd 1 0.2783019 0.9329386
+d 1
+
