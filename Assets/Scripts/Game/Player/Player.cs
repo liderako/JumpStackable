@@ -117,6 +117,7 @@ public class Player : MonoBehaviour, IStatableObject
         {
             _mainState = GetComponent<PlayerJumpState>();
             GetComponent<PlayerJumpState>().Enable();
+            GetComponent<PlayerJumpState>().LastJumps();
         }
     }
 

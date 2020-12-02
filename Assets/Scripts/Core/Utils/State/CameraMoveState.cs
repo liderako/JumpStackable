@@ -20,7 +20,7 @@ namespace CoreGame.Utils.State
         public void UpdateState()
         {
             // _ownerTransform.localPosition = Vector3.Lerp( _targetTransform.localPosition, _targetTransform.localPosition + _offset, 0.1f);
-            _ownerTransform.localPosition = Vector3.Lerp(_ownerTransform.localPosition, _targetTransform.localPosition + _offset, 0.1f);
+            _ownerTransform.localPosition = Vector3.Lerp(_ownerTransform.localPosition, _targetTransform.localPosition + _offset, 0.90f);
         }
     }
 }

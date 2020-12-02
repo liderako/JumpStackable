@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using CoreGame.Utils;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,13 @@ namespace CoreGame.Managers
         [SerializeField] private GameObject _gamePlayMenu;
         [SerializeField] private RawImage  _finishCircleOnProgressBar;
         [SerializeField] private Color _finishColorOnProgressBar;
+        
+        [Header("Finish Jump")]
+        [SerializeField] private TextMeshProUGUI _text;
+
+        [SerializeField] private Transform _player;
+        [SerializeField] private Transform _finishPoint;
+        
         private void Start()
         {
             GameManager.Instance.OnGameEvent += OnHandleGame;
@@ -40,6 +48,19 @@ namespace CoreGame.Managers
             _finishMenu.GetComponent<UnityEngine.Animation>().Play();
             _gamePlayMenu.SetActive(false);
             _finishCircleOnProgressBar.color = _finishColorOnProgressBar;
+        }
+
+        public void Update()
+        {
+            if (_text.gameObject.activeSelf)
+            {
+                _text.text = "Distance: " + Mathf.Round(Vector3.Distance(new Vector3(_player.position.x,0,0), new Vector3(_finishPoint.position.x, 0, 0)));
+            }
+        }
+
+        public void FinalJump()
+        {
+            _text.gameObject.SetActive(true);
         }
     }
 }

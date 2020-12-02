@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using CoreGame;
+using CoreGame.Managers;
 using CoreGame.Utils;
 using DG.Tweening;
 using UnityEngine;
@@ -11,7 +12,11 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerJumpState : MonoBehaviour, IState, IEnabledState
 {
-    [SerializeField] private bool _isStateActive;
+    [SerializeField] private float _jumpForceZ;
+    [SerializeField] private float _jumpForceY;
+    private bool _isStateActive;
+    private bool _isFinishJumps;
+    
     public void Enable()
     {
         _isStateActive = true;
@@ -53,19 +58,22 @@ public class PlayerJumpState : MonoBehaviour, IState, IEnabledState
 
     public void Jump()
     {
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        GetComponent<Rigidbody>().AddForce(new Vector3(0.2f, 1f, 0) * 60, ForceMode.Impulse);
-        //transform.DOJump(transform.position + new Vector3(1, 0, 0) * 20, 15, 1, 1f, false);
+        if (_isFinishJumps)
+        {
+            GetComponent<Rigidbody>().AddForce(new Vector3(1 * _jumpForceZ / 6, 1f * _jumpForceY / 3, 0), ForceMode.Impulse);
+        }
+        else
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().AddForce(new Vector3(1 * _jumpForceZ, 1f * _jumpForceY, 0), ForceMode.Impulse);   
+        }
     }
 
-    // private void OnCollisionEnter(Collision other)
-    // {
-    //     if (other.gameObject.layer == Layers.ground)
-    //     {
-    //         Disable();
-    //     }
-    // }
-
+    public void LastJumps()
+    {
+        _isFinishJumps = true;
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == Layers.ground && _isStateActive)

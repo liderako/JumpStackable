@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CoreGame.Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,7 @@ public class ProgressBar : MonoBehaviour
         if (_player.position.x > _endPosition.position.x)
         {
             _progressBar.fillAmount = 1;
+            UIManager.Instance.FinalJump();
             return;
         }
         _currentDistance = _pathLen - Vector3.Distance(_endPosition.position, _player.position);
